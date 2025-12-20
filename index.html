@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flutter Developer Portfolio</title>
+<style>
+  :root {
+    --bg-color: #0f172a;
+    --text-color: #e5e7eb;
+    --accent-color: #38bdf8;
+    --card-bg: #020617;
+    --button-bg: #38bdf8;
+    --button-text: #0f172a;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  a { color: var(--accent-color); text-decoration: none; }
+
+  header {
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+  }
+  header img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid #ffffff;
+    object-fit: cover;
+  }
+  header h1 { font-size: 40px; margin-bottom: 10px; }
+  header p { font-size: 18px; color: #94a3b8; }
+  header a.button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  header a.button:hover { background: #0ea5e9; }
+
+  #toggleMode {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 15px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 60px 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+  }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 10px;
+  }
+
+  /* Projects Carousel */
+  .carousel-container { position: relative; }
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 15px;
+    padding-bottom: 10px;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+
+  /* Cards */
+  .card {
+    min-width: 220px;
+    max-width: 220px;
+    background: var(--card-bg);
+    padding: 0;
+    border-radius: 10px;
+    flex-shrink: 0;
+    transition: 0.3s;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+  .card img, .card video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .card h3, .card p, .tech, .card a.button {
+    padding: 5px 10px;
+  }
+  .card h3 { font-size: 16px; margin: 5px 0; }
+  .card p { font-size: 12px; margin: 0 0 5px 0; color: #cbd5f5; }
+  .tech { font-size: 10px; }
+  .card a.button { font-size: 10px; padding: 3px 8px; margin-bottom: 5px; display: block; text-align: center; }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--button-bg);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--button-text);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s;
+  }
+  .carousel-btn:hover { background: #0ea5e9; }
+  .prev { left: -20px; }
+  .next { right: -20px; }
+
+  /* Skills */
+  .skills span {
+    display: inline-block;
+    background: var(--accent-color);
+    color: var(--button-text);
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin: 5px 5px 0 0;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+  }
+  .skills.visible span { opacity: 1; transform: translateY(0); }
+
+  .contact a.icon {
+    margin-right: 15px;
+    font-size: 20px;
+    transition: 0.3s;
+  }
+  .contact a.icon:hover { color: #0ea5e9; }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+    background: var(--card-bg);
+  }
+
+  /* Light Mode */
+  body.light-mode {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
+    --accent-color: #3b82f6;
+    --card-bg: #ffffff;
+    --button-bg: #3b82f6;
+    --button-text: #ffffff;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 30px; }
+    header p { font-size: 16px; }
+    .carousel-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="download (1).jpg" alt="Lubaba" />
+  <h1>Lubaba</h1>
+  <p>Flutter Developer • Mobile Applications</p>
+  <a href="#contact" class="button">Hire Me</a>
+  <button id="toggleMode">Toggle Mode</button>
+</header>
+
+<section>
+  <h2>About Me</h2>
+  <p>
+    I am a Flutter developer specialized in building modern, responsive mobile applications.
+    I focus on clean UI, state management, and scalable architecture.
+  </p>
+</section>
+
+<section>
+  <h2>Flutter Projects</h2>
+  <div class="carousel-container">
+    <button class="carousel-btn prev">&#10094;</button>
+    <div class="carousel">
+
+      <div class="card">
+        <img src="lubaba1.png" alt="Trip Booking App" />
+        <h3>Trip Booking App</h3>
+        <p>A mobile application for booking trips with authentication and API integration.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API</div>
+        <a href="#" target="_blank" class="button">View Project</a>
+      </div>
+
+      <div class="card">
+        <img src="lubaba2.jpg" alt="Trip Booking App" />
+        <h3>Trip Booking App</h3>
+        <p>A mobile application for booking trips with authentication and API integration.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API</div>
+        <a href="#" target="_blank" class="button">View Project</a>
+      </div>
+
+      <div class="card">
+        <video autoplay controls width="100%">
+          <source src="lubaba3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h3>E‑Commerce App Demo</h3>
+        <p>Demo video showing product listing, cart, and favorites features.</p>
+        <div class="tech">Flutter • Firebase • Provider</div>
+        <a href="#" target="_blank" class="button">View Project</a>
+      </div>
+
+    </div>
+    <button class="carousel-btn next">&#10095;</button>
+  </div>
+</section>
+
+<!-- GitHub Project Section -->
+<section>
+  <h2>My GitHub Project</h2>
+  <div class="card" style="max-width:400px; margin:auto; text-align:center; padding:20px; background:#020617; border-radius:10px;">
+    <h3>Modular Banking System</h3>
+    <p>A modular banking system built in Java/Flutter.</p>
+    <a href="https://github.com/Lubaba333/SE3" target="_blank" 
+       class="button" style="margin-top:10px; padding:10px 20px; font-size:14px;">
+      View on GitHub
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <span>Flutter</span>
+    <span>Dart</span>
+    <span>GetX</span>
+    <span>REST APIs</span>
+    <span>Firebase</span>
+    <span>UI/UX</span>
+    <span>Git</span>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto: lubabaaldbeis@gmail.com">lubabaaldbeis@gmail.com</a></p>
+  <p>
+    <a href="#" class="icon">GitHub</a>
+    <a href="#" class="icon">LinkedIn</a>
+    <a href="#" class="icon">Twitter</a>
+  </p>
+</section>
+
+<footer>
+  © 2025 Lubaba
+</footer>
+
+<script>
+  // Dark / Light Mode Toggle
+  const toggleBtn = document.getElementById('toggleMode');
+  toggleBtn.addEventListener('click', () => document.body.classList.toggle('light-mode'));
+
+  // Animated Scroll for Sections
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        if(entry.target.querySelector('.skills')) {
+          entry.target.querySelector('.skills').classList.add('visible');
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(section => observer.observe(section));
+
+  // Carousel Buttons
+  const carousel = document.querySelector('.carousel');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  prevBtn.addEventListener('click', () => { carousel.scrollBy({ left: -250, behavior: 'smooth' }); });
+  nextBtn.addEventListener('click', () => { carousel.scrollBy({ left: 250, behavior: 'smooth' }); });
+</script>
+
+</body>
+</html>
