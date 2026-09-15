@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flutter Developer Portfolio</title>
+<title>Lubaba Al Dbeis | Flutter Developer Portfolio</title>
+<meta name="description" content="Lubaba Al Dbeis — Flutter developer building mobile and web applications across delivery, healthcare, travel, government, and education domains.">
+<meta property="og:title" content="Lubaba Al Dbeis | Flutter Developer Portfolio">
+<meta property="og:description" content="Flutter developer building mobile and web applications across delivery, healthcare, travel, government, and education domains.">
+<meta property="og:type" content="website">
 <style>
   :root {
     --bg-color: #0f172a;
@@ -12,6 +16,7 @@
     --card-bg: #020617;
     --button-bg: #38bdf8;
     --button-text: #0f172a;
+    --muted: #94a3b8;
   }
 
   body {
@@ -42,18 +47,26 @@
     object-fit: cover;
   }
   header h1 { font-size: 40px; margin-bottom: 10px; }
-  header p { font-size: 18px; color: #94a3b8; }
-  header a.button {
+  header p { font-size: 18px; color: var(--muted); }
+  .header-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+  header a.button, header a.button-outline {
     display: inline-block;
-    margin-top: 15px;
     padding: 10px 25px;
-    background: var(--button-bg);
-    color: var(--button-text);
     border-radius: 5px;
     font-weight: bold;
     transition: 0.3s;
   }
+  header a.button {
+    background: var(--button-bg);
+    color: var(--button-text);
+  }
   header a.button:hover { background: #0ea5e9; }
+  header a.button-outline {
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+  }
+  header a.button-outline:hover { background: rgba(56,189,248,0.1); }
 
   #toggleMode {
     position: absolute;
@@ -101,8 +114,8 @@
 
   /* Cards */
   .card {
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 240px;
+    max-width: 240px;
     background: var(--card-bg);
     padding: 0;
     border-radius: 10px;
@@ -111,25 +124,44 @@
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     text-align: center;
+    display: flex;
+    flex-direction: column;
   }
   .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
   .card img, .card video {
     width: 100%;
-    height: 180px;
+    height: 150px;
     object-fit: cover;
     display: block;
     margin: 0;
     border-radius: 0;
+    background: #0b1220;
   }
 
-  .card h3, .card p, .tech, .card a.button {
-    padding: 5px 10px;
+  .card .no-image {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0b1220, #111c34);
+    color: var(--muted);
+    font-size: 12px;
   }
-  .card h3 { font-size: 16px; margin: 5px 0; }
-  .card p { font-size: 12px; margin: 0 0 5px 0; color: #cbd5f5; }
-  .tech { font-size: 10px; }
-  .card a.button { font-size: 10px; padding: 3px 8px; margin-bottom: 5px; display: block; text-align: center; }
+
+  .card h3, .card p, .tech {
+    padding: 5px 12px;
+  }
+  .card h3 { font-size: 16px; margin: 8px 0 4px 0; }
+  .card p { font-size: 12px; margin: 0 0 5px 0; color: #cbd5f5; flex-grow: 1; }
+  .tech { font-size: 10px; color: var(--muted); }
+  .card .status {
+    font-size: 10px;
+    padding: 6px 8px 12px 8px;
+    color: var(--muted);
+    font-style: italic;
+  }
 
   .carousel-btn {
     position: absolute;
@@ -174,7 +206,7 @@
   footer {
     text-align: center;
     padding: 40px 20px;
-    color: #94a3b8;
+    color: var(--muted);
     background: var(--card-bg);
     position: relative;
     z-index: 1;
@@ -188,6 +220,7 @@
     --card-bg: #ffffff;
     --button-bg: #3b82f6;
     --button-text: #ffffff;
+    --muted: #475569;
   }
 
   @media (max-width: 600px) {
@@ -212,18 +245,23 @@
 <canvas id="bgCanvas"></canvas>
 
 <header>
-  <img src="download (1).jpg" alt="Lubaba" />
-  <h1>Lubaba</h1>
-  <p>Flutter Developer • Mobile Applications</p>
-  <a href="#contact" class="button">Hire Me</a>
+  <img src="download (1).jpg" alt="Lubaba Al Dbeis" />
+  <h1>Lubaba Al Dbeis</h1>
+  <p>Flutter Developer • Mobile &amp; Web Applications</p>
+  <div class="header-buttons">
+    <a href="#contact" class="button">Hire Me</a>
+    <!-- TODO: replace # with a hosted link to your CV PDF once uploaded to the repo -->
+    <a href="#" class="button-outline">Download CV</a>
+  </div>
   <button id="toggleMode">Toggle Mode</button>
 </header>
 
 <section>
   <h2>About Me</h2>
   <p>
-    I am a Flutter developer specialized in building modern, responsive mobile applications.
-    I focus on clean UI, state management, and scalable architecture.
+    Recent Software Engineering graduate specializing in Flutter mobile and web development, with hands-on
+    experience building applications across delivery, healthcare, travel, government, and education domains.
+    I focus on clean UI, state management with GetX, RESTful API integration, and scalable architecture.
   </p>
 </section>
 
@@ -234,45 +272,66 @@
     <div class="carousel">
 
       <div class="card">
-        <img src="lubaba1.png" alt="Trip Booking App" />
-        <h3>Trip Booking App</h3>
-        <p>A mobile application for booking trips with authentication and API integration.</p>
+        <img src="lubaba1.png" alt="Government Complaints App" />
+        <h3>Government Complaints App</h3>
+        <p>Flutter platform for citizens to submit and track government service complaints.</p>
         <div class="tech">Flutter • Dart • GetX • REST API</div>
-        <a href="#" target="_blank" class="button">View Project</a>
+        <div class="status">Demo link coming soon</div>
       </div>
 
       <div class="card">
-        <img src="lubaba2.jpg" alt="Trip Booking App" />
-        <h3>Trip Booking App</h3>
-        <p>A mobile application for booking trips with authentication and API integration.</p>
-        <div class="tech">Flutter • Dart • GetX • REST API</div>
-        <a href="#" target="_blank" class="button">View Project</a>
+        <img src="lubaba2.jpg" alt="Engineering Office Automation App" />
+        <h3>Engineering Office Automation App</h3>
+        <p>Flutter system for digitizing and automating engineering office workflows, documents, and payment processing.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API • Payments</div>
+        <div class="status">Demo link coming soon</div>
       </div>
-      
+
       <div class="card">
-        <img src="lubaba4.jpg" alt="Trip Booking App" />
-        <h3>Trip Booking App</h3>
-        <p>A mobile application for booking trips with authentication and API integration.</p>
-        <div class="tech">Flutter • Dart • GetX • REST API</div>
-        <a href="#" target="_blank" class="button">View Project</a>
+        <img src="lubaba4.jpg" alt="Travel Booking App" />
+        <h3>Travel Booking App</h3>
+        <p>Flutter app for searching, booking, and managing travel reservations with integrated payment processing.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API • Payments</div>
+        <div class="status">Demo link coming soon</div>
       </div>
-      
+
       <div class="card">
-        <img src="lubaba5.jpg" alt="Trip Booking App" />
-        <h3>Trip Booking App</h3>
-        <p>A mobile application for booking trips with authentication and API integration.</p>
+        <img src="lubaba5.png" alt="Delivery App" />
+        <h3>Delivery App</h3>
+        <p>Flutter app for order placement, real-time delivery tracking, and customer notifications.</p>
         <div class="tech">Flutter • Dart • GetX • REST API</div>
-        <a href="#" target="_blank" class="button">View Project</a>
+        <div class="status">Demo link coming soon</div>
       </div>
+
+  
       <div class="card">
-        <video autoplay controls width="100%">
+        <img src="lubaba7.png" alt="Job Opportunities App" />
+        <h3>Job Opportunities App</h3>
+        <p>Flutter platform connecting job seekers with employers through listings and applications.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API</div>
+        <div class="status">Demo link coming soon</div>
+      </div>
+
+      <div class="card">
+         <img src="lubaba8.png" alt="Nursing School Automation App" />
+         <h3>Nursing School Automation App</h3>
+        <p>Flutter system automating administrative and academic processes for a nursing school.</p>
+        <div class="tech">Flutter • Dart • GetX • REST API</div>
+        <div class="status">Demo link coming soon</div>
+      </div>
+
+  
+
+      <div class="card">
+        <video muted loop controls width="100%">
           <source src="lubaba3.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <h3>E‑Commerce App Demo</h3>
-        <p>Demo video showing product listing, cart, and favorites features.</p>
-        <div class="tech">Flutter • Firebase • Provider</div>
-        <a href="#" target="_blank" class="button">View Project</a>
+        <!-- TODO: confirm which project this demo video belongs to and update the title/description below -->
+        <h3>Engineering Office Automation App </h3>
+        <p>Demo video — confirm which project this belongs to.</p>
+        <div class="tech">Flutter</div>
+        <div class="status">Details pending</div>
       </div>
 
     </div>
@@ -281,12 +340,22 @@
 </section>
 
 <section>
+  <h2>Search System</h2>
+  <div class="card" style="max-width:400px; margin:auto; text-align:center; padding:20px; background:var(--card-bg); border-radius:10px;">
+    <h3 style="margin-top:0;">Search System</h3>
+    <p>Data processing pipeline for search functionality, built with information retrieval algorithms.</p>
+    <div class="tech">Python • Google Colab • Information Retrieval Algorithms</div>
+  </div>
+</section>
+
+<section>
   <h2>My GitHub Project</h2>
-  <div class="card" style="max-width:400px; margin:auto; text-align:center; padding:20px; background:#020617; border-radius:10px;">
+  <div class="card" style="max-width:400px; margin:auto; text-align:center; padding:20px; background:var(--card-bg); border-radius:10px;">
     <h3>Modular Banking System</h3>
-    <p>A modular banking system built in Java/Flutter.</p>
-    <a href="https://github.com/Lubaba333/SE3" target="_blank" 
-       class="button" style="margin-top:10px; padding:10px 20px; font-size:14px;">
+    <p>A modular banking system built in Java.</p>
+    <div class="tech">Java • OOP</div>
+    <a href="https://github.com/Lubaba333/SE3" target="_blank"
+       class="button" style="display:inline-block; margin-top:10px; padding:10px 20px; font-size:14px; background:var(--button-bg); color:var(--button-text); border-radius:5px; font-weight:bold;">
       View on GitHub
     </a>
   </div>
@@ -297,26 +366,32 @@
   <div class="skills">
     <span>Flutter</span>
     <span>Dart</span>
+    <span>Java</span>
+    <span>C++</span>
+    <span>SQL</span>
     <span>GetX</span>
     <span>REST APIs</span>
     <span>Firebase</span>
-    <span>UI/UX</span>
-    <span>Git</span>
+    <span>WebSockets</span>
+    <span>UI/UX (Figma)</span>
+    <span>Git &amp; GitHub</span>
+    <span>Prompt Engineering</span>
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
-  <p>Email: <a href="mailto: lubabaaldbeis@gmail.com">lubabaaldbeis@gmail.com</a></p>
+  <p>Email: <a href="mailto:lubabaaldbeis@gmail.com">lubabaaldbeis@gmail.com</a></p>
+  <p>Phone: +963 994 419 598</p>
   <p>
-    <a href="#" class="icon">GitHub</a>
-    <a href="#" class="icon">LinkedIn</a>
-    <a href="#" class="icon">Twitter</a>
+    <a href="https://github.com/Lubaba333" target="_blank" class="icon">GitHub</a>
+    <!-- TODO: add real LinkedIn URL once you have a profile, or remove this line -->
+    <!-- <a href="https://linkedin.com/in/your-profile" target="_blank" class="icon">LinkedIn</a> -->
   </p>
 </section>
 
 <footer>
-  © 2025 Lubaba
+  © 2026 Lubaba Al Dbeis
 </footer>
 
 <script>
@@ -342,8 +417,8 @@
   const carousel = document.querySelector('.carousel');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
-  prevBtn.addEventListener('click', () => { carousel.scrollBy({ left: -250, behavior: 'smooth' }); });
-  nextBtn.addEventListener('click', () => { carousel.scrollBy({ left: 250, behavior: 'smooth' }); });
+  prevBtn.addEventListener('click', () => { carousel.scrollBy({ left: -260, behavior: 'smooth' }); });
+  nextBtn.addEventListener('click', () => { carousel.scrollBy({ left: 260, behavior: 'smooth' }); });
 
   // Background Canvas Animation (Particles + Lines)
   const canvas = document.getElementById('bgCanvas');
@@ -367,7 +442,6 @@
   function animate(){
     ctx.clearRect(0,0,width,height);
 
-    // Draw lines between particles
     for(let i=0;i<particleCount;i++){
       for(let j=i+1;j<particleCount;j++){
         const dx = particles[i].x - particles[j].x;
@@ -383,7 +457,6 @@
       }
     }
 
-    // Draw particles
     particles.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
